@@ -14,10 +14,11 @@ function updateBoardScale() {
     return;
   }
 
-  const availableWidth = window.innerWidth - 56;
-  const availableHeight = window.innerHeight - 286;
+  // 盤の左右に並ぶ持ち駒2列分(約100px)を差し引いて盤のスケールを決める
+  const availableWidth = window.innerWidth - 56 - 100;
+  const availableHeight = window.innerHeight - 240;
   const scale = Math.max(
-    0.48,
+    0.42,
     Math.min(availableWidth / 470, availableHeight / 470, 0.72)
   );
 
@@ -34,22 +35,22 @@ const openModalBtn = document.getElementById("openModal");
 const closeModalBtn = document.getElementById("closeModal");
 
 openModalBtn.addEventListener("click", () => {
-  ruleModal.style.display = "block";
+  ruleModal.classList.add("is-open");
 });
 
 closeModalBtn.addEventListener("click", () => {
-  ruleModal.style.display = "none";
+  ruleModal.classList.remove("is-open");
 });
 
 window.addEventListener("click", (event) => {
   if (event.target === ruleModal) {
-    ruleModal.style.display = "none";
+    ruleModal.classList.remove("is-open");
   }
 });
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    ruleModal.style.display = "none";
+    ruleModal.classList.remove("is-open");
   }
 });
 

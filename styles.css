@@ -18,8 +18,8 @@ body {
   margin: 0;
   padding: 8px 12px 16px;
   color: var(--ink);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans",
-    "Yu Gothic", sans-serif;
+  font-family: "Noto Sans JP", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN",
+    "游ゴシック", "Yu Gothic", sans-serif;
 }
 
 /* ヘッダー */
@@ -58,7 +58,8 @@ p {
   margin-top: 6px;
   padding: 5px 10px;
   font-size: 16px;
-  font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-family: "Noto Sans JP", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN",
+    "游ゴシック", "Yu Gothic", sans-serif;
   background: none;
   border: 1px solid var(--ink);
   color: var(--ink);
@@ -81,14 +82,33 @@ p {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* 表示時は画面中央に配置 */
+.modal.is-open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .modal-content {
   background-color: var(--paper);
-  margin: 8% auto;
-  padding: 30px 20px;
+  margin: 0 auto;
+  padding: 30px 15px;
   border-radius: 10px;
   width: 90%;
   max-width: 750px;
+  max-height: 90svh;
+  overflow-y: auto;
   position: relative;
+  text-align: center;
+}
+
+.modal-content h4 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.modal-content p {
+  text-align: center;
 }
 
 .close-button {
@@ -105,9 +125,11 @@ p {
 }
 
 .rule-list {
+  display: inline-block;
   list-style-type: disc;
   padding-left: 1.5em;
   margin: 0 0 8px;
+  text-align: left;
 }
 
 /* 先後・CPUレベル */
@@ -740,6 +762,17 @@ p {
     font-size: 13px;
   }
 
+  .modal-content {
+    padding: 20px 12px;
+    width: 95%;
+  }
+
+  .modal-content h4,
+  .modal-content p,
+  .rule-list {
+    font-size: 14px;
+  }
+
   .top-menu {
     font-size: 16px;
     height: 38px;
@@ -759,26 +792,15 @@ p {
   }
 
   .wrap {
-    flex-direction: column;
-    gap: 3px;
+    gap: 4px;
     width: 100%;
     height: auto;
     margin: 4px auto;
   }
 
-  .wrap2 {
-    flex-flow: row;
-    justify-content: center;
-  }
-
   .even,
   .odd {
-    margin: 2px;
-  }
-
-  .board {
-    width: 470px;
-    height: 470px;
+    margin: 3px 2px;
   }
 
   .play_reset {
