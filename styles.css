@@ -1,10 +1,13 @@
 :root {
   --red: #ed1a3d;
   --blue: #31a9ee;
-  --ink: #000000;
+  --ink: #222222;
   --paper: #ffffff;
   --muted: #949593;
-  --board-bg: #edc3a683;
+  --bg: #f7f3ee;
+  --gold: #ffbb00;
+  --board-bg: rgba(237, 195, 166, 0.45);
+  --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.08);
   --board-scale: 1;
   --piece-size: 50px;
   --piece-font-size: 24px;
@@ -18,6 +21,7 @@ body {
   margin: 0;
   padding: 8px 12px 16px;
   color: var(--ink);
+  background-color: var(--bg);
   font-family: "Noto Sans JP", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN",
     "游ゴシック", "Yu Gothic", sans-serif;
 }
@@ -34,8 +38,9 @@ body {
 
 .header-logo {
   font-family: "Montserrat", sans-serif;
-  font-weight: bold;
+  font-weight: 800;
   font-size: 42px;
+  letter-spacing: 0.02em;
   color: var(--ink);
   text-decoration: none;
 }
@@ -56,18 +61,23 @@ p {
 /* ルールボタン */
 #openModal {
   margin-top: 6px;
-  padding: 5px 10px;
-  font-size: 16px;
+  padding: 6px 18px;
+  font-size: 15px;
   font-family: "Noto Sans JP", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN",
     "游ゴシック", "Yu Gothic", sans-serif;
-  background: none;
-  border: 1px solid var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
   color: var(--ink);
   cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.15s;
 }
 
 #openModal:hover {
-  background-color: #DCDDDD;
+  background-color: var(--ink);
+  color: var(--paper);
+  transform: translateY(-1px);
 }
 
 /* モーダル */
@@ -79,7 +89,8 @@ p {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
 }
 
 /* 表示時は画面中央に配置 */
@@ -93,13 +104,14 @@ p {
   background-color: var(--paper);
   margin: 0 auto;
   padding: 30px 15px;
-  border-radius: 10px;
+  border-radius: 14px;
   width: 90%;
   max-width: 750px;
   max-height: 90svh;
   overflow-y: auto;
   position: relative;
   text-align: center;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
 }
 
 .modal-content h4 {
@@ -132,73 +144,77 @@ p {
   text-align: left;
 }
 
-/* 先後・CPUレベル */
+/* 先後・CPUレベル（セグメントコントロール） */
 .top-menu {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   gap: 16px;
-  height: 46px;
-  margin: 4px auto;
-  font-family: "Montserrat", sans-serif;
-  font-size: 22px;
+  margin: 8px auto;
 }
 
-.sengo {
-  font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
-  font-size: 18px;
+.seg {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-bottom: 2px;
+  gap: 2px;
+  padding: 3px;
+  background: #e8e2d8;
+  border-radius: 999px;
 }
 
-.radio-label {
+.seg input {
+  display: none;
+}
+
+.seg-label {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8a857c;
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
-.level {
-  font-size: 18px;
-  display: inline-flex;
-  flex-direction: row-reverse;
-  align-items: flex-end;
-  margin-bottom: 2px;
+.seg input:checked + .seg-label {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
 }
 
-.hidden-visually {
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
+/* 先手・後手の駒色ドット */
+.sente::before,
+.gote::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
 }
 
-.level-label {
-  cursor: pointer;
-  color: #ccc;
-  padding: 0 2px;
+.sente::before {
+  background: var(--red);
 }
 
-.level-icon::before {
-  content: "★";
-  font-size: 24px;
+.gote::before {
+  background: var(--blue);
 }
 
-.level-input:checked ~ .level-label {
-  color: #ffbb00;
+.level-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.cpu-lv {
+.seg-caption {
   font-family: "Montserrat", sans-serif;
-  font-size: 14px;
-  margin: 0 4px 4px 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #8a857c;
 }
 
 @keyframes fadeIn {
@@ -245,6 +261,9 @@ p {
 .odd {
   margin: 5px;
   color: var(--paper);
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+  transition: transform 0.15s;
 }
 
 .even {
@@ -276,8 +295,8 @@ p {
   line-height: 70px;
   text-align: center;
   background-color: var(--paper);
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
   user-select: none;
 }
 
@@ -330,6 +349,8 @@ p {
   height: 417px;
   background: var(--board-bg);
   border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .line {
@@ -703,19 +724,40 @@ p {
 }
 
 .btn {
-  width: 100px;
-  height: 50px;
-  font-size: 18px;
-  background: yellow;
-  border-bottom: solid 5px gray;
-  border-radius: 4px;
+  width: 120px;
+  height: 46px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
   cursor: pointer;
   user-select: none;
+  box-shadow: var(--shadow-soft);
+  transition: background-color 0.2s, color 0.2s, transform 0.15s,
+    box-shadow 0.15s;
+}
+
+#play {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+#reset {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
 }
 
 .btn:active {
-  border-bottom: none;
-  transform: translateY(5px);
+  transform: translateY(1px);
+  box-shadow: none;
 }
 
 @media (max-width: 760px) {
@@ -774,21 +816,21 @@ p {
   }
 
   .top-menu {
-    font-size: 16px;
-    height: 38px;
-    gap: 10px;
+    gap: 8px;
+    margin: 6px auto;
   }
 
-  .sengo {
-    font-size: 15px;
+  .seg-label {
+    padding: 4px 10px;
+    font-size: 12px;
   }
 
-  .level {
-    font-size: 15px;
+  .seg-caption {
+    font-size: 11px;
   }
 
-  .level-icon::before {
-    font-size: 18px;
+  .level-group {
+    gap: 5px;
   }
 
   .wrap {
@@ -833,7 +875,7 @@ p {
   }
 
   .top-menu {
-    height: 34px;
+    margin: 4px auto;
   }
 
   .btn {

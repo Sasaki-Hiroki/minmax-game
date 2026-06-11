@@ -4,7 +4,7 @@ const PLAYER_COLORS = {
   even: "#ED1A3D",
   odd: "#31A9EE",
   empty: "#ffffff",
-  ink: "#000000",
+  ink: "#222222",
   highlight: "yellow",
 };
 

@@ -33,8 +33,8 @@
         お互いがすべての駒を置き終わったとき、以下の勝利判定を行います。</p>
       <h4>【勝利条件】</h4>
       <ul class="rule-list">
-        <li>赤プレイヤー："Minmax"の値が赤色である。</li>
-        <li>青プレイヤー："Maxmin"の値が青色である。</li>
+        <li>赤プレイヤー："Minmax"の値が赤色。</li>
+        <li>青プレイヤー："Maxmin"の値が青色。</li>
       </ul>
       <p>"Minmax"とは、2つの数字0を結ぶ各パスに対して、各パスの最小値の中の最大値、<br>
         "Maxmin"とは、2つの数字13を結ぶ各パスに対して、各パスの最大値の中の最小値をいいます。</p>
@@ -44,22 +44,22 @@
     </div>
   </div>
   <div class="top-menu">
-    <form name="Teban" class="sengo">
-      <label class="radio-label">
-        <input type="radio" name="teban" value="0" checked>先手
-      </label>
-      <label class="radio-label">
-        <input type="radio" name="teban" value="1">後手
-      </label>
+    <form name="Teban" class="seg">
+      <input type="radio" name="teban" value="0" id="sente" checked>
+      <label for="sente" class="seg-label sente">先手</label>
+      <input type="radio" name="teban" value="1" id="gote">
+      <label for="gote" class="seg-label gote">後手</label>
     </form>
-    <form name="Level" class="level">
-      <input class="level-input hidden-visually" type="radio" id="3-star" name="level" value="3">
-      <label class="level-label" for="3-star"><span class="level-icon"></span></label>
-      <input class="level-input hidden-visually" type="radio" id="2-star" name="level" value="2">
-      <label class="level-label" for="2-star"><span class="level-icon"></span></label>
-      <input class="level-input hidden-visually" type="radio" id="1-star" name="level" value="1" checked>
-      <label class="level-label" for="1-star"><span class="level-icon"></span></label>
-      <div class="cpu-lv">CPU Lv.</div>
+    <form name="Level" class="level-group">
+      <span class="seg-caption">CPU Lv.</span>
+      <div class="seg">
+        <input type="radio" name="level" value="1" id="lv1" checked>
+        <label for="lv1" class="seg-label">普通</label>
+        <input type="radio" name="level" value="2" id="lv2">
+        <label for="lv2" class="seg-label">強い</label>
+        <input type="radio" name="level" value="3" id="lv3">
+        <label for="lv3" class="seg-label">激強</label>
+      </div>
     </form>
   </div>
   <div class="wrap">
