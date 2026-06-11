@@ -722,11 +722,7 @@ input[type="radio"]:checked + label[for="Lev3"] {
 
 @media (max-width: 760px) {
   :root {
-    --board-scale: clamp(
-      0.54,
-      min(calc((100vw - 12px) / 470), calc((100svh - 272px) / 470)),
-      0.84
-    );
+    --board-scale: 0.7;
     --piece-size: clamp(28px, 8.2vw, 36px);
     --piece-font-size: clamp(14px, 4.3vw, 18px);
   }
@@ -813,11 +809,7 @@ input[type="radio"]:checked + label[for="Lev3"] {
 
 @media (max-height: 620px) and (max-width: 760px) {
   :root {
-    --board-scale: clamp(
-      0.48,
-      min(calc((100vw - 12px) / 470), calc((100svh - 238px) / 470)),
-      0.78
-    );
+    --board-scale: 0.58;
     --piece-size: clamp(26px, 7.5vw, 32px);
     --piece-font-size: clamp(13px, 4vw, 16px);
   }

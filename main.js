@@ -18,6 +18,26 @@ const date = last.getDate();
 const target = document.getElementById("modify");
 target.textContent = `${year}-${month}-${date}`;
 
+function updateBoardScale() {
+  if (!window.matchMedia("(max-width: 760px)").matches) {
+    document.documentElement.style.removeProperty("--board-scale");
+    return;
+  }
+
+  const availableWidth = window.innerWidth - 56;
+  const availableHeight = window.innerHeight - 286;
+  const scale = Math.max(
+    0.48,
+    Math.min(availableWidth / 470, availableHeight / 470, 0.72)
+  );
+
+  document.documentElement.style.setProperty("--board-scale", scale);
+}
+
+updateBoardScale();
+window.addEventListener("resize", updateBoardScale);
+window.addEventListener("orientationchange", updateBoardScale);
+
 /* ルール */
 const dt = document.querySelector("dt");
 const ruleBlock = dt.parentNode;
