@@ -9,20 +9,26 @@ const PLAYER_COLORS = {
 };
 
 function updateBoardScale() {
+  const root = document.documentElement.style;
+
   if (!window.matchMedia("(max-width: 760px)").matches) {
-    document.documentElement.style.removeProperty("--board-scale");
+    root.removeProperty("--board-scale");
+    root.removeProperty("--piece-size");
+    root.removeProperty("--piece-font-size");
     return;
   }
 
-  // 盤の左右に並ぶ持ち駒2列分(約100px)を差し引いて盤のスケールを決める
-  const availableWidth = window.innerWidth - 56 - 100;
-  const availableHeight = window.innerHeight - 240;
-  const scale = Math.max(
-    0.42,
-    Math.min(availableWidth / 470, availableHeight / 470, 0.72)
-  );
+  // 持ち駒は盤上の0,13(50px)と同じ大きさ(50px*scale)で左右に並べる。
+  // 画面幅 ≒ 盤(470*scale) + 持ち駒2列(2*50*scale) + 固定の余白
+  // → scale = (画面幅 - 余白) / 570
+  const sideMargin = 20; // 左右paddingと列間の隙間の合計
+  const widthScale = (window.innerWidth - sideMargin) / 570;
+  const heightScale = (window.innerHeight - 220) / 470;
+  const scale = Math.max(0.45, Math.min(widthScale, heightScale, 0.85));
 
-  document.documentElement.style.setProperty("--board-scale", scale);
+  root.setProperty("--board-scale", scale);
+  root.setProperty("--piece-size", `${50 * scale}px`);
+  root.setProperty("--piece-font-size", `${24 * scale}px`);
 }
 
 updateBoardScale();

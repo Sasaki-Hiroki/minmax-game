@@ -721,9 +721,10 @@ p {
 
 @media (max-width: 760px) {
   :root {
-    --board-scale: 0.7;
-    --piece-size: clamp(28px, 8.2vw, 36px);
-    --piece-font-size: clamp(14px, 4.3vw, 18px);
+    /* JS(updateBoardScale)が実値を上書きする。以下は読み込み前のフォールバック */
+    --board-scale: 0.6;
+    --piece-size: 30px;
+    --piece-font-size: 15px;
   }
 
   .header {
@@ -748,7 +749,7 @@ p {
 
   body {
     min-height: 100svh;
-    padding: 58px 6px 8px;
+    padding: 58px 4px 8px;
     overflow-x: hidden;
   }
 
@@ -792,7 +793,7 @@ p {
   }
 
   .wrap {
-    gap: 4px;
+    gap: 2px;
     width: 100%;
     height: auto;
     margin: 4px auto;
@@ -800,7 +801,7 @@ p {
 
   .even,
   .odd {
-    margin: 3px 2px;
+    margin: 2px 1px;
   }
 
   .play_reset {
@@ -816,9 +817,10 @@ p {
 
 @media (max-height: 620px) and (max-width: 760px) {
   :root {
-    --board-scale: 0.58;
-    --piece-size: clamp(26px, 7.5vw, 32px);
-    --piece-font-size: clamp(13px, 4vw, 16px);
+    /* JS(updateBoardScale)が実値を上書きする。以下はフォールバック */
+    --board-scale: 0.5;
+    --piece-size: 25px;
+    --piece-font-size: 13px;
   }
 
   p {
