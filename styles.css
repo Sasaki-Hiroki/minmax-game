@@ -257,11 +257,10 @@ p {
 
 .even.scale,
 .odd.scale {
-  width: calc(var(--piece-size) + 8px);
-  height: calc(var(--piece-size) + 8px);
-  margin: 1px;
-  font-size: calc(var(--piece-font-size) + 5px);
-  line-height: calc(var(--piece-size) + 4px);
+  position: relative;
+  z-index: 2;
+  /* レイアウト寸法は変えずに見た目だけ拡大し、盤がずれないようにする */
+  transform: scale(1.16);
 }
 
 /* ゲーム終了表示 */
@@ -802,6 +801,8 @@ p {
   .even,
   .odd {
     margin: 2px 1px;
+    /* 盤はboard-scaleで縮小され枠線も2px*scaleになる。持ち駒の枠線も合わせる */
+    border-width: calc(2px * var(--board-scale));
   }
 
   .play_reset {
