@@ -20,8 +20,34 @@ target.textContent = `${year}-${month}-${date}`;
 
 /* ルール */
 const dt = document.querySelector("dt");
+const ruleBlock = dt.parentNode;
+const ruleDialog = document.getElementById("rule_dialog");
+const ruleClose = document.getElementById("rule_close");
+
+function closeRuleDialog() {
+  ruleBlock.classList.remove("appear");
+}
+
 dt.addEventListener("click", () => {
-  dt.parentNode.classList.toggle("appear");
+  ruleBlock.classList.toggle("appear");
+});
+
+ruleClose.addEventListener("click", closeRuleDialog);
+
+document.addEventListener("click", (event) => {
+  if (
+    ruleBlock.classList.contains("appear") &&
+    !ruleDialog.contains(event.target) &&
+    !dt.contains(event.target)
+  ) {
+    closeRuleDialog();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key == "Escape") {
+    closeRuleDialog();
+  }
 });
 
 // 13,15は除外

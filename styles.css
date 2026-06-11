@@ -70,15 +70,33 @@ dt::before {
 
 dd {
   display: none;
-  width: min(770px, 100%);
-  margin: 0 auto;
-  padding: 8px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 11;
+  width: min(770px, calc(100vw - 32px));
+  max-height: min(78svh, 560px);
+  margin: 0;
+  padding: 44px 18px 18px;
+  overflow: auto;
   background-color: lemonchiffon;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%);
 }
 
 dd ul {
   margin: 0;
   padding-left: 24px;
+}
+
+dl > div.appear::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.42);
 }
 
 dl > div.appear dt::before {
@@ -87,7 +105,39 @@ dl > div.appear dt::before {
 
 dl > div.appear dd {
   display: block;
-  animation: fadeIn 0.3s;
+  animation: modalFadeIn 0.2s;
+}
+
+#rule_close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-color: var(--ink);
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#rule_close::before,
+#rule_close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 18px;
+  background-color: var(--paper);
+}
+
+#rule_close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#rule_close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 @keyframes fadeIn {
@@ -99,6 +149,18 @@ dl > div.appear dd {
   100% {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes modalFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 10px));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -283,6 +345,10 @@ input[type="radio"]:checked + label[for="Lev3"] {
 .mass {
   position: absolute;
   z-index: 1;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  line-height: 46px;
   color: var(--paper);
   background: var(--paper);
 }
@@ -656,9 +722,13 @@ input[type="radio"]:checked + label[for="Lev3"] {
 
 @media (max-width: 760px) {
   :root {
-    --board-scale: clamp(0.47, calc((100vw - 126px) / 470), 0.78);
-    --piece-size: clamp(32px, 8.9vw, 42px);
-    --piece-font-size: clamp(16px, 5vw, 21px);
+    --board-scale: clamp(
+      0.54,
+      min(calc((100vw - 12px) / 470), calc((100svh - 272px) / 470)),
+      0.84
+    );
+    --piece-size: clamp(28px, 8.2vw, 36px);
+    --piece-font-size: clamp(14px, 4.3vw, 18px);
   }
 
   body {
@@ -691,8 +761,6 @@ input[type="radio"]:checked + label[for="Lev3"] {
   }
 
   dd {
-    max-height: 45svh;
-    overflow: auto;
     font-size: 12px;
   }
 
@@ -710,14 +778,21 @@ input[type="radio"]:checked + label[for="Lev3"] {
   }
 
   .wrap {
-    gap: 4px;
-    height: calc(470px * var(--board-scale));
+    flex-direction: column;
+    gap: 3px;
+    width: 100%;
+    height: auto;
     margin: 4px auto;
+  }
+
+  .wrap2 {
+    flex-flow: row;
+    justify-content: center;
   }
 
   .even,
   .odd {
-    margin: 3px;
+    margin: 2px;
   }
 
   .board {
@@ -738,9 +813,13 @@ input[type="radio"]:checked + label[for="Lev3"] {
 
 @media (max-height: 620px) and (max-width: 760px) {
   :root {
-    --board-scale: clamp(0.43, calc((100vw - 122px) / 470), 0.68);
-    --piece-size: clamp(30px, 8vw, 38px);
-    --piece-font-size: clamp(15px, 4.5vw, 19px);
+    --board-scale: clamp(
+      0.48,
+      min(calc((100vw - 12px) / 470), calc((100svh - 238px) / 470)),
+      0.78
+    );
+    --piece-size: clamp(26px, 7.5vw, 32px);
+    --piece-font-size: clamp(13px, 4vw, 16px);
   }
 
   body {
