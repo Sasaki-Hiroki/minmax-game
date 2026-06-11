@@ -6,50 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="数学的ゲーム・パズルが遊べます">
   <title>Minmaxゲーム</title>
-  <!-- <link rel="icon" href="img/icon.jpg"> -->
   <link rel="stylesheet" href="styles.css">
   <link rel="apple-touch-icon" href="img/home_icon.png">
-  <!-- <meta name="apple-mobile-web-app-title" content="CATENA"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <time id="modify"></time>
-    <h1>- Minmaxゲーム -</h1>
-  </header>
-  <p>CPU対戦ができるよ！先後とCPUレベルを選択してPlayを押してね！</p>
-  <dl>
-    <div>
-      <dt><b>ルール</b></dt>
-      <dd id="rule_dialog">
-        <button type="button" id="rule_close" aria-label="ルールを閉じる"></button>
-        <ul>
-          <li><b>持ち駒</b>：先手は赤の偶数駒2,4,6,8,10,12、後手は青の偶数駒1,3,5,7,9,11です。</li>
-          <li><b>ゲームの進行</b>：赤と青のプレイヤーが交互に自分の色の駒を駒を置いていきます。<br>
-            お互いがすべての駒を置き終わったとき、以下の勝利判定を行います。</li>
-          <li><b>赤の勝利条件</b>："Minmax"の値が赤色である。</li>
-          <li><b>青の勝利条件</b>："Maxmin"の値が青色である。</li>
-          ここで、"Minmax"とは、2つの数字0を結ぶ各パスに対して、各パスの最小値の中の最大値、<br>
-          "Maxmin"とは、2つの数字13を結ぶ各パスに対して、各パスの最大値の中の最小値をいいます。
-        </ul>
-        <p>Minmaxゲームは、以下の数学的性質により引き分けが起こることはありません。</p>
-        <p><b>定理</b>：Minmax=Maxmin</p>
-      </dd>
+  <header class="header">
+    <div class="header-inner">
+      <span class="header-logo">Minmax Game</span>
     </div>
-  </dl>
-  <div class="option">
-    <form name="Teban">
-      <input type="radio" name="teban" value="0" id="sente" checked>
-      <label for="sente" class="label">先手</label>
-      <input type="radio" name="teban" value="1" id="gote">
-      <label for="gote" class="label">後手</label>
+  </header>
+  <div class="center-box">
+    <p>CPU対戦ができるよ！先後とCPUレベルを選択してPlayを押してね！</p>
+    <button id="openModal">＋ルールをみる</button>
+  </div>
+  <!-- モーダル -->
+  <div id="ruleModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close-button">&times;</span>
+      <ul class="rule-list">
+        <li><b>持ち駒</b>：先手は赤の偶数駒2,4,6,8,10,12、後手は青の奇数駒1,3,5,7,9,11です。</li>
+        <li><b>ゲームの進行</b>：赤と青のプレイヤーが交互に自分の色の駒を置いていきます。<br>
+          お互いがすべての駒を置き終わったとき、以下の勝利判定を行います。</li>
+        <li><b>赤の勝利条件</b>："Minmax"の値が赤色である。</li>
+        <li><b>青の勝利条件</b>："Maxmin"の値が青色である。</li>
+      </ul>
+      <p>"Minmax"とは、2つの数字0を結ぶ各パスに対して、各パスの最小値の中の最大値、<br>
+        "Maxmin"とは、2つの数字13を結ぶ各パスに対して、各パスの最大値の中の最小値をいいます。</p>
+      <p>Minmaxゲームは、以下の数学的性質により引き分けが起こることはありません。</p>
+      <p><b>定理</b>：Minmax=Maxmin</p>
+    </div>
+  </div>
+  <div class="top-menu">
+    <form name="Teban" class="sengo">
+      <label class="radio-label">
+        <input type="radio" name="teban" value="0" checked>先手
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="teban" value="1">後手
+      </label>
     </form>
-    <form name="Level">
-      <input type="radio" name="level" value="1" id="Lev1" checked>
-      <label for="Lev1" class="label">ふつう</label>
-      <input type="radio" name="level" value="2" id="Lev2">
-      <label for="Lev2" class="label">つよい</label>
-      <input type="radio" name="level" value="3" id="Lev3">
-      <label for="Lev3" class="label">やばい</label>
+    <form name="Level" class="level">
+      <input class="level-input hidden-visually" type="radio" id="3-star" name="level" value="3">
+      <label class="level-label" for="3-star"><span class="level-icon"></span></label>
+      <input class="level-input hidden-visually" type="radio" id="2-star" name="level" value="2">
+      <label class="level-label" for="2-star"><span class="level-icon"></span></label>
+      <input class="level-input hidden-visually" type="radio" id="1-star" name="level" value="1" checked>
+      <label class="level-label" for="1-star"><span class="level-icon"></span></label>
+      <div class="cpu-lv">CPU Lv.</div>
     </form>
   </div>
   <div class="wrap">

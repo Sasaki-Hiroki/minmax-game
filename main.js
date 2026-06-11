@@ -8,16 +8,6 @@ const PLAYER_COLORS = {
   highlight: "yellow",
 };
 
-/* 更新日の取得 */
-const last = new Date(document.lastModified);
-const year = last.getFullYear();
-const month = last.getMonth() + 1;
-const date = last.getDate();
-
-/* 日付を書き換える */
-const target = document.getElementById("modify");
-target.textContent = `${year}-${month}-${date}`;
-
 function updateBoardScale() {
   if (!window.matchMedia("(max-width: 760px)").matches) {
     document.documentElement.style.removeProperty("--board-scale");
@@ -38,35 +28,28 @@ updateBoardScale();
 window.addEventListener("resize", updateBoardScale);
 window.addEventListener("orientationchange", updateBoardScale);
 
-/* ルール */
-const dt = document.querySelector("dt");
-const ruleBlock = dt.parentNode;
-const ruleDialog = document.getElementById("rule_dialog");
-const ruleClose = document.getElementById("rule_close");
+/* ルールモーダル */
+const ruleModal = document.getElementById("ruleModal");
+const openModalBtn = document.getElementById("openModal");
+const closeModalBtn = document.getElementById("closeModal");
 
-function closeRuleDialog() {
-  ruleBlock.classList.remove("appear");
-}
-
-dt.addEventListener("click", () => {
-  ruleBlock.classList.toggle("appear");
+openModalBtn.addEventListener("click", () => {
+  ruleModal.style.display = "block";
 });
 
-ruleClose.addEventListener("click", closeRuleDialog);
+closeModalBtn.addEventListener("click", () => {
+  ruleModal.style.display = "none";
+});
 
-document.addEventListener("click", (event) => {
-  if (
-    ruleBlock.classList.contains("appear") &&
-    !ruleDialog.contains(event.target) &&
-    !dt.contains(event.target)
-  ) {
-    closeRuleDialog();
+window.addEventListener("click", (event) => {
+  if (event.target === ruleModal) {
+    ruleModal.style.display = "none";
   }
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key == "Escape") {
-    closeRuleDialog();
+  if (event.key === "Escape") {
+    ruleModal.style.display = "none";
   }
 });
 

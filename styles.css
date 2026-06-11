@@ -22,122 +22,161 @@ body {
     "Yu Gothic", sans-serif;
 }
 
-#modify::before {
-  content: "";
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  margin-right: 2px;
-  background-image: url("./update_icon.png");
-  background-size: contain;
-  vertical-align: -1px;
+/* ヘッダー */
+.header-inner {
+  max-width: 1200px;
+  height: 90px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
 }
 
-header {
-  text-align: center;
-}
-
-h1 {
-  margin: 0;
-  text-align: center;
+.header-logo {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 42px;
+  color: var(--ink);
+  text-decoration: none;
 }
 
 p {
-  margin: 8px 0;
+  margin: 4px 0;
   text-align: center;
 }
 
-/* ルール */
-dl {
-  margin: 8px 0;
+/* センターボックス */
+.center-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 10px;
 }
 
-dt {
+/* ルールボタン */
+#openModal {
+  margin-top: 6px;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  background: none;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+#openModal:hover {
+  background-color: #DCDDDD;
+}
+
+/* モーダル */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: var(--paper);
+  margin: 8% auto;
+  padding: 30px 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 750px;
   position: relative;
-  width: 110px;
-  margin: 0 auto;
-  text-align: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.rule-list {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin: 0 0 8px;
+}
+
+/* 先後・CPUレベル */
+.top-menu {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 16px;
+  height: 46px;
+  margin: 4px auto;
+  font-family: "Montserrat", sans-serif;
+  font-size: 22px;
+}
+
+.sengo {
+  font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
   cursor: pointer;
   user-select: none;
 }
 
-dt::before {
-  content: "▼";
-  position: absolute;
-  left: calc(50% - 50px);
-  transition: transform 0.3s;
+.level {
+  font-size: 18px;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  margin-bottom: 2px;
 }
 
-dd {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 11;
-  width: min(770px, calc(100vw - 32px));
-  max-height: min(78svh, 560px);
-  margin: 0;
-  padding: 44px 18px 18px;
-  overflow: auto;
-  background-color: lemonchiffon;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-  transform: translate(-50%, -50%);
-}
-
-dd ul {
-  margin: 0;
-  padding-left: 24px;
-}
-
-dl > div.appear::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.42);
-}
-
-dl > div.appear dt::before {
-  transform: scale(1, -1);
-}
-
-dl > div.appear dd {
-  display: block;
-  animation: modalFadeIn 0.2s;
-}
-
-#rule_close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  background-color: var(--ink);
+.hidden-visually {
   border: 0;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#rule_close::before,
-#rule_close::after {
-  content: "";
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 2px;
-  height: 18px;
-  background-color: var(--paper);
+  width: 1px;
 }
 
-#rule_close::before {
-  transform: translate(-50%, -50%) rotate(45deg);
+.level-label {
+  cursor: pointer;
+  color: #ccc;
+  padding: 0 2px;
 }
 
-#rule_close::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+.level-icon::before {
+  content: "★";
+  font-size: 24px;
+}
+
+.level-input:checked ~ .level-label {
+  color: #ffbb00;
+}
+
+.cpu-lv {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  margin: 0 4px 4px 0;
 }
 
 @keyframes fadeIn {
@@ -150,68 +189,6 @@ dl > div.appear dd {
     opacity: 1;
     transform: none;
   }
-}
-
-@keyframes modalFadeIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, calc(-50% - 10px));
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.option {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin: 0 auto;
-}
-
-.option form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-input[type="radio"] {
-  display: none;
-}
-
-input[type="radio"]:checked + label[for="sente"] {
-  color: var(--paper);
-  background: var(--red);
-}
-
-input[type="radio"]:checked + label[for="gote"] {
-  color: var(--paper);
-  background: var(--blue);
-}
-
-input[type="radio"]:checked + label[for="Lev1"],
-input[type="radio"]:checked + label[for="Lev2"],
-input[type="radio"]:checked + label[for="Lev3"] {
-  color: var(--paper);
-  background: var(--muted);
-}
-
-.label {
-  display: block;
-  width: 100px;
-  height: 45px;
-  margin: 5px;
-  padding: 0 5px;
-  color: var(--ink);
-  line-height: 41px;
-  text-align: center;
-  background: var(--paper);
-  border: 2px solid var(--ink);
-  border-radius: 5px;
-  cursor: pointer;
-  user-select: none;
 }
 
 .wrap {
@@ -727,50 +704,58 @@ input[type="radio"]:checked + label[for="Lev3"] {
     --piece-font-size: clamp(14px, 4.3vw, 18px);
   }
 
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--paper);
+    height: 50px;
+    z-index: 10;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-inner {
+    height: 100%;
+    padding: 0 20px;
+  }
+
+  .header-logo {
+    font-size: 26px;
+  }
+
   body {
     min-height: 100svh;
-    padding: 4px 6px 8px;
+    padding: 58px 6px 8px;
     overflow-x: hidden;
   }
 
-  #modify {
-    font-size: 11px;
-  }
-
-  #modify::before {
-    width: 12px;
-    height: 12px;
-  }
-
-  h1 {
-    font-size: clamp(20px, 6vw, 28px);
-  }
-
   p {
-    margin: 4px 0;
     font-size: 12px;
   }
 
-  dl {
-    margin: 4px 0;
-    font-size: 12px;
-  }
-
-  dd {
-    font-size: 12px;
-  }
-
-  .option {
-    gap: 4px;
-  }
-
-  .label {
-    width: clamp(58px, 17vw, 76px);
-    height: 32px;
-    margin: 3px;
-    padding: 0 3px;
+  #openModal {
+    margin-top: 4px;
+    padding: 3px 8px;
     font-size: 13px;
-    line-height: 28px;
+  }
+
+  .top-menu {
+    font-size: 16px;
+    height: 38px;
+    gap: 10px;
+  }
+
+  .sengo {
+    font-size: 15px;
+  }
+
+  .level {
+    font-size: 15px;
+  }
+
+  .level-icon::before {
+    font-size: 18px;
   }
 
   .wrap {
@@ -814,21 +799,16 @@ input[type="radio"]:checked + label[for="Lev3"] {
     --piece-font-size: clamp(13px, 4vw, 16px);
   }
 
-  body {
-    padding-top: 2px;
-  }
-
   p {
     display: none;
   }
 
-  dl {
-    margin: 2px 0;
+  .center-box {
+    margin-top: 2px;
   }
 
-  .label {
-    height: 29px;
-    line-height: 25px;
+  .top-menu {
+    height: 34px;
   }
 
   .btn {
